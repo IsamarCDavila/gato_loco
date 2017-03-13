@@ -46,8 +46,8 @@
 <section id="nombres">
 	<div class="content">
 		<div class="container">
-			<p>Ingrese el nombre del jugador 1 </p><input class="form-control" type="text">
-			<p>Ingrese el nombre del jugador 2 <input class="form-control" type="text"></p>
+			<p>Ingrese el nombre del jugador 1 </p><input class="form-control" type="text" id="jugador1">
+			<p>Ingrese el nombre del jugador 2 <input class="form-control" type="text" id="jugador2"></p>
 			<p class="text-center">
 				<button id="btn-nombres">Comenzar</button>
 			</p>
@@ -70,7 +70,7 @@
             <input type="text" class="cuadrito" id="7" readonly onclick="marcar(this.id)">
             <input type="text" class="cuadrito" id="8" readonly onclick="marcar(this.id)">
             <input type="text" class="cuadrito" id="9" readonly onclick="marcar(this.id)">
-            <div id="div_turno">turno del jugador : x</div> <br> 
+            <div id="div_turno">turno del jugador : </div> <br> 
             <button onclick="reiniciar()">Reiniciar</button> 
 			</div>
 </section>            

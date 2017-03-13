@@ -13,10 +13,13 @@ function init()
     $('#btn-nombres').click(onClickBtnJuego);
 
 	TweenMax.from($('#saludo h1'), 1, {marginBottom:'0px', ease:Elastic.easeOut});
+    
+    
 }
 
 function onClickBtnSaludo() {
 	gotoSection('nombres');
+    
 }
 
 function onClickBtnNombre() {
@@ -24,6 +27,11 @@ function onClickBtnNombre() {
 }
 function onClickBtnJuego() {
 	gotoSection('juego');
+    var jugador1=document.getElementById("jugador1");
+    var jugador2=document.getElementById("jugador2");
+    localStorage.setItem('nombre_1',jugador1.value);
+    localStorage.setItem('nombre_2',jugador2.value);
+    caremoco();
 }
 function onClickBtnNombre() {
 	gotoSection('juego');
