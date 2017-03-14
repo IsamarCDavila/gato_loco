@@ -4,27 +4,42 @@ var bandera=1;
 var ban=false;
 var opciones=new Array(9);
 
+
 function caremoco(){
     // random
-oli=localStorage.getItem("nombre_1",jugador1);
-chaujj=localStorage.getItem("nombre_2",jugador2);
+    /*
+    oli=localStorage.getItem("nombre_1",jugador1);
+    chaujj=localStorage.getItem("nombre_2",jugador2);
 
-var moco=Math.floor((Math.random()*2));
-if(moco==0){
+    var moco=Math.floor((Math.random()*2));
+    if(moco==0){
+        document.getElementById("div_turno").innerHTML="turno del jugador "+ oli;
+    }else{
+        document.getElementById("div_turno").innerHTML="turno del jugador "+ chaujj;
+    }*/
+    oli=localStorage.getItem("nombre_1",jugador1);
+    chaujj=localStorage.getItem("nombre_2",jugador2);
+    
     document.getElementById("div_turno").innerHTML="turno del jugador "+ oli;
-}else{
-    document.getElementById("div_turno").innerHTML="turno del jugador "+ chaujj;
+    var arraycito = [oli,chaujj];
+    var randomValue = arraycito[Math.floor(arraycito.length * Math.random())];
+    console.log(randomValue);
 }
-}
-
-
 
 function marcar (id){
-   
+    //$(".cuadrito").each(function(""))
+    $(".cuadrito").one("click", function(){
+       moco=Math.floor((Math.random()*2)); 
+    });    
     
    var celda =document.getElementById(id);
-   if (bandera%2!=0 &&opciones[id]!=0)
-       {
+    //oli=localStorage.getItem("nombre_1",jugador1);
+    //chaujj=localStorage.getItem("nombre_2",jugador2);
+
+    
+    
+   if (bandera%2!=0 &&opciones[id]!=0){
+           
            celda.value=turno;
            document.getElementById("div_turno").innerHTML="turno del jugador "+ oli;
            opciones[id]=1;

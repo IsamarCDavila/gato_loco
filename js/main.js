@@ -11,6 +11,7 @@ function init()
 	$('#btn-saludo').click(onClickBtnSaludo);
 	$('#btn-nombres').click(onClickBtnNombre);
     $('#btn-nombres').click(onClickBtnJuego);
+    $('#btn-historial').click(onClickBtnHistorial);
 
 	TweenMax.from($('#saludo h1'), 1, {marginBottom:'0px', ease:Elastic.easeOut});
     
@@ -19,7 +20,7 @@ function init()
 
 function onClickBtnSaludo() {
 	gotoSection('nombres');
-    
+    //gotoSection('juego');
 }
 
 function onClickBtnNombre() {
@@ -31,12 +32,17 @@ function onClickBtnJuego() {
     var jugador2=document.getElementById("jugador2");
     localStorage.setItem('nombre_1',jugador1.value);
     localStorage.setItem('nombre_2',jugador2.value);
-    caremoco();
+    caremoco(); 
 }
 function onClickBtnNombre() {
 	gotoSection('juego');
 }
-
+function onClickBtnHistorial(evt){
+    evt.preventDefault();
+    gotoSection('historial');
+    getHistorial();
+    
+}
 function gotoSection(_identificadorDeSeccion)
 {
 	currentSection.removeClass('visible');
@@ -46,4 +52,26 @@ function gotoSection(_identificadorDeSeccion)
 
 	//TweenMax.from(nextSection, 1.5, {scale:0.2, opacity:0, ease:Elastic.easeOut});
 	currentSection = nextSection;
+}
+
+function getHistorial(){
+    $.ajax({
+        url:"http://test-ta.herokuapp.com/games"
+    }).success(function(_data){
+            //console.log(_datos);
+            dibujarHistorial(_data);
+    });
+}
+
+
+function dibujarHistorial(_datos){
+    //console.log(_datos);
+    var lista=$("#lista-juegos");
+    for(var i in _datos){
+        console.log(_datos[i].winner_player);
+        var html='<li class="list-group-item">Ganador: '+_datos[i].winner_player+'</li>';
+        lista.append(html);
+    }
+    //lista.html(_datos);
+    
 }
