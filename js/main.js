@@ -1,4 +1,3 @@
-
 $(document).ready(init);
 
 var currentSection = null;
@@ -12,18 +11,10 @@ function init()
    // $('#btn-nombres').click(onClickBtnJuego);
     
     $('#btn-historial').click(onClickBtnHistorial);
-    $('#btn-comentar').click(onClickBtnComentar);
-    
-    
-    
+    $('#btn-comentar').click(onClickBtnComentar);    
     $('#lista-juegos').on('click','button',onClickBtnItemJuego);
-    
-    
-     
 
-	TweenMax.from($('#saludo h1'), 1, {marginBottom:'0px', ease:Elastic.easeOut});
-    
-    
+	TweenMax.from($('#saludo h1'), 1, {marginBottom:'0px', ease:Elastic.easeOut});   
 }
 function onClickBtnItemJuego(){
     var idGame=$(this).parent().data('idgame');
@@ -33,21 +24,11 @@ function onClickBtnItemJuego(){
     getComentarios(idGame);
     currentGameID = idGame;
 //getSingleGame(idGame);
-    
 }
-
-
-
 
 function onClickBtnSaludo() {
 	gotoSection('nombres');
-    //gotoSection('juego');
 }
-
-
-
-
-
 function getSingleGame(_idGame){
     $.ajax({
         url:"http://test-ta.herokuapp.com/games/"+_idGame,
@@ -67,16 +48,15 @@ function onClickBtnJuego() {
     var jugador2=document.getElementById("jugador2");
     localStorage.setItem('nombre_1',jugador1.value);
     localStorage.setItem('nombre_2',jugador2.value);
-    caremoco(); 
+    caremoco();
 }
 function onClickBtnNombre() {
 	gotoSection('juego');
 }
-function onClickBtnHistorial(evt){
+function onClickBtnHistorial(evt) {
     evt.preventDefault();
-    gotoSection('historial');
+    gotoSection("historial");
     getHistorial();
-    
 }
 
 function onClickBtnComentar()
@@ -112,15 +92,6 @@ function gotoSection(_identificadorDeSeccion)
 	currentSection = nextSection;
 }
 
-function getHistorial(){
-    $.ajax({
-        url:"http://test-ta.herokuapp.com/games"
-    }).success(function(_data){
-            //console.log(_datos);
-            dibujarHistorial(_data);
-    });
-}
-
 
 function getComentarios(_idGame)
 {
@@ -143,12 +114,6 @@ function dibujarComentarios(_datos)
 	lista.append(html);
 	}
 }
-
-
-
-
-
-
 
 function dibujarHistorial(_datos){
     //console.log(_datos);
