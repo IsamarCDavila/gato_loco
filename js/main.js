@@ -10,6 +10,7 @@ function init()
 	$('#btn-nombres').click(onClickBtnNombre);
     $('#btn-nombres').click(onClickBtnJuego);
     $('#btn-historial').click(onClickBtnHistorial);
+    $('#btn-inicio').click(onClickBtnInicio);
     $('#list-games').on('click','button', onClickBtnItemGame);
     $('#btn-comments').click(onClickBtnComments);
 
@@ -33,6 +34,9 @@ function onClickBtnJuego() {
 }
 function onClickBtnNombre() {
 	gotoSection('juego');
+}
+function onClickBtnInicio(evt){
+    gotoSection('saludo');
 }
 function onClickBtnHistorial(evt) {
     evt.preventDefault();
