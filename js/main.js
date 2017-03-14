@@ -48,11 +48,21 @@ function gotoSection(_identificadorDeSeccion)
 	currentSection = nextSection;
 }
 /*-------<section id="nombres">--------*/
-jQuery.ajax({
-    url: 'http://test-ta.herokuapp.com/games',
-    type:'post',
-    data:{
-        player1:$('#jugador1')    ;
-    }
-})
-/*-----End--<section id="nombres">--------*/
+$('#btn-nombres').click(function(){    
+    jQuery.ajax({
+        url: 'https://test-ta.herokuapp.com/games',
+        type:'post',
+        data:{
+            "player1":"Maday",
+            "player2":"Paola"            
+        }        
+    }).done(
+        function(resp)
+        {
+            alert(resp);
+        }
+    );
+    console.log(data.player1);
+    console.log(data.player2);
+});
+/*-----End--<section id="nombres"> --------*/
