@@ -1,42 +1,23 @@
 $(document).ready(init);
 
 var currentSection = null;
-var currentGameID;
+var currentGameId; 
 
 function init()
 {
 	currentSection = $('#saludo');
 	$('#btn-saludo').click(onClickBtnSaludo);
 	$('#btn-nombres').click(onClickBtnNombre);
-   // $('#btn-nombres').click(onClickBtnJuego);
-    
+    $('#btn-nombres').click(onClickBtnJuego);
     $('#btn-historial').click(onClickBtnHistorial);
-    $('#btn-comentar').click(onClickBtnComentar);    
-    $('#lista-juegos').on('click','button',onClickBtnItemJuego);
+    $('#list-games').on('click','button', onClickBtnItemGame);
+    $('#btn-comments').click(onClickBtnComments);
 
 	TweenMax.from($('#saludo h1'), 1, {marginBottom:'0px', ease:Elastic.easeOut});   
-}
-function onClickBtnItemJuego(){
-    var idGame=$(this).parent().data('idgame');
-    console.log(idGame);
-    //getSingleGame(idGame);
-    gotoSection('historial-detalle');
-    getComentarios(idGame);
-    currentGameID = idGame;
-//getSingleGame(idGame);
 }
 
 function onClickBtnSaludo() {
 	gotoSection('nombres');
-}
-function getSingleGame(_idGame){
-    $.ajax({
-        url:"http://test-ta.herokuapp.com/games/"+_idGame,
-        type:'GET'
-    }).success(function(_data){
-            console.log(_data);
-            //dibujarHistorial(_data);
-    });
 }
 
 function onClickBtnNombre() {
@@ -58,28 +39,75 @@ function onClickBtnHistorial(evt) {
     gotoSection("historial");
     getHistorial();
 }
-
-function onClickBtnComentar()
-{
-    enviarComentario(currentGameID, $('#name').val(), $('#content').val());
+function getHistorial(){
+    $.ajax({
+        url:'http://test-ta.herokuapp.com/games',
+    }).success(function(_data){
+       console.log(_data); 
+        drawHistorial(_data);
+    });
+    //Por defecto ajax es get, para agregar post, se pone Type  
+}
+function drawHistorial(_datos) {
+    var list = $('#list-games');
+    for(var i in _datos){
+        console.log(_datos[i].winner_player);
+        var html = '<li data-idgame="'+_datos[i].id+'"class="list-group-item">El jugador: '+_datos[i].winner_player +'le hago a '+_datos[i].loser_player+ '<button class="btn">Comentar</button></li>';
+        list.append(html);
+    }  
+}
+function onClickBtnItemGame() {
+    //alert("Hola");
+    var idGame = $(this).parent().data('idgame');
+    getSingleGame(idGame);
+    gotoSection('comments');
+    getComments(idGame);
+    currentGameId = idGame;
+}
+function getSingleGame(_idGame) {
+    $.ajax({
+        url:'http://test-ta.herokuapp.com/games/'+_idGame,
+        //los : indican que lo que se encuentra delante de ellos es un parametro, o [] o {} o ?, parametros opcionales
+    }).success(function(_data){
+        console.log(_data.id);
+    });
+}
+function drawComments(_datos) {
+    var list = $("#list-comments");
+    list.empty();
+    for(var i in _datos){
+        
+        var html = '<li class="list-group-item">'+_datos[i].name+' dice:<p>'+_datos[i].content+'</p></li>';
+        list.append(html);
+    }  
+}
+function getComments(_idGame) {
+    $.ajax({
+        url:'http://test-ta.herokuapp.com/games/'+_idGame+'/comments',
+        //los : indican que lo que se encuentra delante de ellos es un parametro, o [] o {} o ?, parametros opcionales
+    }).success(function(_data){
+        console.log(_data);
+        drawComments(_data);
+    });
+}
+function onClickBtnComments() {
+    sendComment(currentGameId,$('#name').val(),$('#content').val());
     $('#name').val("");
     $('#content').val("");
 }
-function enviarComentario(_idGame, _name, _content)
-{
-
+function sendComment(_idGame,_name,_content) {
     $.ajax({
-
         url:'http://test-ta.herokuapp.com/games/'+_idGame+'/comments',
         type:'POST',
-        data:{comment:{ name:_name, content:_content, game_id:_idGame }}
-	}).success(function(_data){
+        data:{comment:
+               {name:_name,content:_content,game_id:_idGame}
+             },
+        //los : indican que lo que se encuentra delante de ellos es un parametro, o [] o {} o ?, parametros opcionales
+    }).success(function(_data){
         console.log(_data);
-        getComentarios(_idGame);
-	});
+        getComments(_idGame);
+    });
 }
-
-
 
 function gotoSection(_identificadorDeSeccion)
 {
@@ -87,49 +115,9 @@ function gotoSection(_identificadorDeSeccion)
 	var nextSection = $('#'+_identificadorDeSeccion);
 
 	nextSection.addClass('visible');
-
-	//TweenMax.from(nextSection, 1.5, {scale:0.2, opacity:0, ease:Elastic.easeOut});
+    //TweenMax.from(nextSection, 1.5, {scale:0.2, opacity:0, ease:Elastic.easeOut});
 	currentSection = nextSection;
 }
-
-
-function getComentarios(_idGame)
-{
-	$.ajax({
-	url: 'http://test-ta.herokuapp.com/games/'+_idGame+'/comments',
-	type:'GET'
-	}).success(function(_data){
-	console.log(_data);
-	dibujarComentarios(_data);
-	});
-}
-
-function dibujarComentarios(_datos)
-{
-	var lista = $('#lista-comentarios');
-	lista.empty();
-	for(var i in _datos)
-	{
-	var html = '<li class="list-group-item">'+_datos[i].name+' dice: <p>'+ _datos[i].content +'</p></li>';
-	lista.append(html);
-	}
-}
-
-function dibujarHistorial(_datos){
-    //console.log(_datos);
-    var lista=$("#lista-juegos");
-    for(var i in _datos){
-        //console.log(_datos[i].winner_player);
-        //var html='<li class="list-group-item">Ganador: '+_datos[i].winner_player+'</li>';
-        //var html='<li data-idgame="'+_datos[i].id+'" class="list-group-item">Ganador: '+_datos[i].winner_player+'</li>';
-        //lista.append(html);
-        var html = '<li data-idgame="'+ _datos[i].id +'" class="list-group-item">' + _datos[i].winner_player + ' le gano a '+ _datos[i].loser_player +' en ' + _datos[i].number_of_turns_to_win + ' movimientos <button class="btn">Comentar</button></li>';
- 	      lista.append(html);
-    }
-    //lista.html(_datos);
-    
-}
-
 
 
 
