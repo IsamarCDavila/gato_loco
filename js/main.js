@@ -47,3 +47,12 @@ function gotoSection(_identificadorDeSeccion)
 	//TweenMax.from(nextSection, 1.5, {scale:0.2, opacity:0, ease:Elastic.easeOut});
 	currentSection = nextSection;
 }
+/*-------<section id="nombres">--------*/
+jQuery.ajax({
+    url: 'http://test-ta.herokuapp.com/games',
+    type:'post',
+    data:{
+        player1:$('#jugador1')    ;
+    }
+})
+/*-----End--<section id="nombres">--------*/
