@@ -56,7 +56,7 @@ function drawHistorial(_datos) {
     var list = $('#list-games');
     for(var i in _datos){
         console.log(_datos[i].winner_player);
-        var html = '<li data-idgame="'+_datos[i].id+'"class="list-group-item">El jugador: '+_datos[i].winner_player +'le hago a '+_datos[i].loser_player+ '<button class="btn">Comentar</button></li>';
+        var html = '<li data-idgame="'+_datos[i].id+'"class="list-group-item">El jugador: '+_datos[i].winner_player +'le gano a '+_datos[i].loser_player+ '<button class="btn">Comentar</button></li>';
         list.append(html);
     }  
 }
