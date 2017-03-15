@@ -52,13 +52,14 @@ function jugadorx(_option){
    }else if (opciones[1]==_option && opciones [5]==_option &&opciones[9]==_option){
        alert("felicidades jugador ganaste" +turno+" ganaste");
    }else if (opciones[3]==_option && opciones [5]==_option &&opciones[7]==_option){
-       alert("felicidades jugador ganaste" + turno+ " ganaste");
+         swal({title: "Ganaste..!",text: "felicidades jugador " +turno+ " ganaste",imageUrl: "img/ganaste.png"});
    }else if (opciones[1]==_option && opciones [4]==_option &&opciones[7]==_option){
        alert("felicidades jugador ganaste" +turno+" ganaste");
    }else if (opciones[2]==_option && opciones [5]==_option &&opciones[8]==_option){
        alert("felicidades jugador ganaste" +turno+" ganaste");
    }else if (opciones[3]==_option && opciones [6]==_option &&opciones[9]==_option){
        alert("felicidades jugador ganaste" +turno+" ganaste");
+
    }
 }
 
