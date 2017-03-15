@@ -60,3 +60,12 @@ section
 {
 	margin-bottom:120px;
 }
+/*-----Animacion pra inicio----*/
+section.saludo h1 {
+  position: fixed;
+  bottom: 0;
+  text-align: center;
+  width: 100%;
+  padding: 0 10px 4px 10px;
+}
+/*---End--Animacion pra inicio----*/
