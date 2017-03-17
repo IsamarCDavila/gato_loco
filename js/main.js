@@ -37,7 +37,6 @@ function onClickBtnSaludo() {
 }*/
 function onClickBtnJuego() {
     /* Permite tener 0 y x en la tabla*/
-	
     var jugador1=document.getElementById("jugador1");
     var jugador2=document.getElementById("jugador2");
     localStorage.setItem('nombre_1',jugador1.value);
@@ -45,7 +44,7 @@ function onClickBtnJuego() {
     
     var request = new XMLHttpRequest();
 
-    request.open('POST', 'http://test-ta.herokuapp.com/games');
+    request.open('POST', 'https://test-ta.herokuapp.com/games');
 
     request.setRequestHeader('Content-Type', 'application/json');
 
@@ -83,7 +82,7 @@ function onClickBtnHistorial(evt) {
 }
 function getHistorial(){
     $.ajax({
-        url:'http://test-ta.herokuapp.com/games',
+        url:'https://test-ta.herokuapp.com/games',
     }).success(function(_data){
        /*console.log(_data); */
         drawHistorial(_data);
@@ -107,7 +106,7 @@ function onClickBtnItemGame() {
 }
 function getSingleGame(_idGame) {
     $.ajax({
-        url:'http://test-ta.herokuapp.com/games/'+_idGame,
+        url:'https://test-ta.herokuapp.com/games/'+_idGame,
         //los : indican que lo que se encuentra delante de ellos es un parametro, o [] o {} o ?, parametros opcionales
     }).success(function(_data){
         /*console.log(_data.id);*/
@@ -124,7 +123,7 @@ function drawComments(_datos) {
 }
 function getComments(_idGame) {
     $.ajax({
-        url:'http://test-ta.herokuapp.com/games/'+_idGame+'/comments',
+        url:'https://test-ta.herokuapp.com/games/'+_idGame+'/comments',
         //los : indican que lo que se encuentra delante de ellos es un parametro, o [] o {} o ?, parametros opcionales
     }).success(function(_data){
         /*console.log(_data);*/
@@ -138,7 +137,7 @@ function onClickBtnComments() {
 }
 function sendComment(_idGame,_name,_content) {
     $.ajax({
-        url:'http://test-ta.herokuapp.com/games/'+_idGame+'/comments',
+        url:'https://test-ta.herokuapp.com/games/'+_idGame+'/comments',
         type:'POST',
         data:{comment:
                {name:_name,content:_content,game_id:_idGame}
@@ -163,7 +162,7 @@ function gotoSection(_identificadorDeSeccion)
 /*-----Animacion pra inicio----*/
 //Pure JS, completely customizable preloader from GreenSock.
 //Once you create an instance like var preloader = new GSPreloader(), call preloader.active(true) to open it, preloader.active(false) to close it, and preloader.active() to get the current status. Only requires TweenLite and CSSPlugin (http://www.greensock.com/gsap/)
-var preloader = new GSPreloader({
+/*var preloader = new GSPreloader({
   radius:42, 
   dotSize:15, 
   dotCount:10, 
@@ -256,7 +255,7 @@ function GSPreloader(options) {
     }
     return this;
   };
-}
+}*/
 /*-----Animacion pra inicio----*/
 
 
